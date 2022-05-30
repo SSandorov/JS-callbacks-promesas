@@ -19,7 +19,17 @@ const heroes = {
 // El argumento del callback lo podríamos llamar de cualquier manera, pero es el estándar
 // llamarlo callback para saber lo que es sólo con verlo
 export const buscarHeroe = (id, callback) => {
+
     const heroe = heroes[id];
 
-    callback(heroe);
+    // Forma estándar de manejar los errores de un callback
+    if(heroe) {
+        // sino hay error el primer argumento es null y nos devuelve el segundo
+        callback(null, heroe);
+    } else {
+        // Un error
+        callback(`No existe un héroe con el id ${id}`);
+    }
+
+    // callback(heroe);
 }

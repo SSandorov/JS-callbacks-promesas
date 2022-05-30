@@ -16,10 +16,17 @@ destiempo aunque los callbacks sean ejecutados de manera sequencial
 Un callback es una función mandada como un argumento en un método como el siguiente
 */
 
-buscarHeroe(heroeId, (heroe) => {
+                        // Primero recibe el error
+buscarHeroe(heroeId, (err, heroe) => {
     // esto es un callback
-    console.log(heroe);
+    //console.log(heroe);
 
     // sino hay un id correcto nos devuelve undefined, por ello debemos manejar los errores
     // con los callback
+    if(err) {
+        console.error(err)
+    } else {
+        console.log(heroe);
+    }
+    
 });
