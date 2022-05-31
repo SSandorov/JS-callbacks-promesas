@@ -39,6 +39,23 @@ export const buscarHeroe = (id) => {
     });
 }
 
+// Así es como definimos una función asíncrona
+// con el async no tenemos que crear una nueva instancia de la clase Promise
+export const buscarHeroeAsync = async(id) => {
+
+    const heroe = heroes[id];
+
+    if(heroe) {
+        // es igual que el resolve en la promesa
+        return heroe;
+    } else {
+        // esta es la manera que manejamos los errores
+        // si fuese un error inesperado le añadiríamos throw Error() para espeficicarnos
+        // la línea del error y cual puede ser el fallo
+        throw `No existe un héroe con el id ${id}`;
+    }
+}
+
 const promesaLenta = new Promise((resolve, reject) => {
     setTimeout(() => resolve('Promesa Lenta'), 2000);
 });
