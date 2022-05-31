@@ -60,6 +60,16 @@ buscarHeroe(heroeId).then(heroe => {
     console.log(`Enviando a ${heroe.nombre} a la misión`);
 })
 
+/*
+El Promise.all es la manera de resolver el callback hell, ya que no ejecutará la segunda
+parte del código hasta que los argumentos del all() se terminen de ejecutar
+*/
+Promise.all([buscarHeroe(heroeId), buscarHeroe(heroeId2)])
+        // desestructuramos el arreglo para tener el código más limpio
+    .then(([heroe1, heroe2]) => {
+    console.log(`Enviando a ${heroe1.nombre} y ${heroe2.nombre} a la misión`);
+})
+
 // Las promesas se ejecutan despúes de que el resto del código se ejecute. Lo que ayuda a
 // prevenir errores de ejecución.
 // Por ello, mirando a la consola, primero saldrá este console.log y luego la promesa
