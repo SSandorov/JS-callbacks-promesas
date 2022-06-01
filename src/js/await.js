@@ -17,12 +17,19 @@ a la llamada varía en tiempo (desde milésimas hasta segundos), por lo que no p
 debemos configurarlo con un setTimeOut(), es una mala práctica, para eso tenemos el await
 */
 export const obtenerHeroesArr = async() => {
-    const heroesArr = [];
+    // const heroesArr = [];
 
-    for(const id of heroesId) {
-        const heroe = await buscarHeroeAsync(id);
-        heroesArr.push(heroe);
-    }
+    /*
+    Pro tip1: no se recomienda añadir el await dentro del bucle for, ya que ejecutaría
+    varias veces seguidas, con lo que no estaría bien optimizado. En lugar de ello es mejor
+    resolver todas las promesas y luego en el return añadimos el await
+    */
+    // for(const id of heroesId) {
+        // const heroe = await buscarHeroeAsync(id);
+        // heroesArr.push(buscarHeroeAsync(id));
+    // }
 
-    return heroesArr;
+    // return await Promise.all(heroesArr);
+    // Pro tip2: manera elegante de resolver la promesa
+    return await Promise.all(heroesId.map(buscarHeroeAsync));
 }
