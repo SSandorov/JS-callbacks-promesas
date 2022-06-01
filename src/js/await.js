@@ -33,3 +33,27 @@ export const obtenerHeroesArr = async() => {
     // Pro tip2: manera elegante de resolver la promesa
     return await Promise.all(heroesId.map(buscarHeroeAsync));
 }
+
+// Manejo de errores en el await
+
+export const obtenerHeroeAwait = async(id) => {
+    /* 
+    Para poder manejar los errores del await en lugar de la promesa asíncrona
+    debemos emplear el try y catch. Con el try y el catch ya nos devolverá el error
+    sin la necesidad de emplear el .catch cuando llamemos la función en el index.js
+
+    Es muy util emplear el catch ya que podríamos devolcer un objeto predterminado
+    para no jodernos el código
+    */
+    try{
+        const heroe = await buscarHeroeAsync(id);
+        return heroe;
+
+    }catch(err){
+        console.log('Catch!!');
+        return {
+            nombre: 'Sin nombre',
+            poder: 'Sin poder'
+        }
+    }
+}
