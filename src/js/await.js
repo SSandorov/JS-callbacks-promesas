@@ -1,6 +1,7 @@
-import { buscarHeroeAsync } from "./promises.js";
+import { buscarHeroe, buscarHeroeAsync } from "./promises.js";
 
 const heroesId = ['capi', 'iron', 'spider'];
+const heroesPromesas = heroesId.map(id => buscarHeroe(id));
 
 /*
 El await nos permite esperar que se ejecuten las promesas antes de ejecutar alguna
@@ -56,4 +57,35 @@ export const obtenerHeroeAwait = async(id) => {
             poder: 'Sin poder'
         }
     }
+}
+
+// Cómo manejar los ciclos de promesas de una manera más eficiente
+export const heroesCiclo = async() => {
+    console.time('HeroesCiclo');
+
+    // Esta es la manera estándar de iterar elementos
+    // const heroes = await Promise.all(heroesPromesas);
+    // heroes.forEach(heroe => console.log(heroe));
+
+    // Esta es una mejor manera de iterar promesas
+    for await(const heroe of heroesPromesas) {
+        console.log(heroe);
+    }
+
+    console.timeEnd('HeroesCiclo');
+}
+
+// Cómo manejar condicionales de promesas de una manera más eficiente
+
+export const heroeIfAwait = async(id) => {
+
+    // Como el condicional sólo nos devolvería que es de tipo promesa, no su valor,
+    // siempre recibiríamos de vuelta el else {}. Por ello es necesario emplear el 
+    // await y especificar el nombre de la propiedad con la que queremos comparar
+    if( (await buscarHeroeAsync(id)).nombre === 'Iron Man') {
+        console.log('Es el mejor de todos');
+    }  else {
+        console.log('Nada');
+    }
+
 }
